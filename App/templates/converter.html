@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter Web App</title>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/converter.css' %}" />
+      {% load static %}
+    <script
+            defer src="{% static 'js/converter.js' %}">
+    </script>
+    <link/>
+  </head>
+
+  <body>
+    <br />
+    <br />
+    <div class="map-photo-div">
+        {% load static %}
+      <img id="map-photo" src="{% static 'img/map.jpg' %}" alt="WorldMap" />
+    </div>
+    <br />
+    <br />
+    <div class="grid">
+        <div class="rules">
+            <h3>RULES:</h3>
+            <br>
+            <br>
+            <ol id="list">
+                <li>Pick which currencies would you like to use from dropdown list.</li>
+                <li>Enter value for first currency.</li>
+                <li>App will convert amount for 1st currency into 2nd.</li>
+                <li>Your result will appear under the button, where is noticeable sign:</li>
+                <p>"Your conversion will appear here."</p>
+            </ol>
+        </div>
+        <div class="converter">
+          <header class="header-for-converter">Currency Converter</header>
+          <img id="currencies-photo" src="../static/img/currencies.png" alt="Currencies"/>
+          <form action="#">
+            <div class="amount">
+              <p>Enter Value</p>
+              <input type="text" id="enter" value="100"/> <!-- oninput="getValue()" -->
+            </div>
+            <div class="drop-list">
+              <div class="from">
+                <p>From</p>
+                <div class="select-box">
+                  <img id="flag1"
+                       src="https://www.countryflagicons.com/FLAT/64/EU.png"
+                       alt="flag"
+                  />
+                  <select id="selector1">
+                    <option value="US">USD</option>
+                    <option value="EU" selected>EUR</option>
+                    <option value="GB">GBP</option>
+                    <option value="CH">FR</option>
+                    <option value="PL">PLN</option>
+                  </select>
+                </div>
+              </div>
+              <div class="icon"><i class="exchange-icon"></i></div>
+              <div class="to">
+                <p>To</p>
+                <div class="select-box">
+                  <img
+                    id="flag2"
+                    src="https://www.countryflagicons.com/FLAT/64/PL.png"
+                    alt="flag"
+                  />
+                  <select id="selector2">
+                    <option value="US">USD</option>
+                    <option value="EU">EUR</option>
+                    <option value="GB">GBP</option>
+                    <option value="CH">FR</option>
+                    <option value="PL" selected>PLN</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="exchange-button">Get Exchange rate</button>
+            </div>
+              <div class="output-div">
+                    <p id="conversion">Your conversion will appear here.</p>
+              </div>
+          </form>
+        </div>
+        <div class="description">
+            <h3>DESCRIPTION:</h3>
+            <br>
+            <br>
+            <p>Calculator based on: <a href="http://api.nbp.pl/en.html">http://api.nbp.pl/en.html </a>.
+                Calcualtor gets currencies, always converts them into polish currency: PLN.
+                Than it converts them between picked currencies.
+                Creates ratio of currency 1 and currency 2 in Polish currency.
+                <br>Based on Django, used simple JS and CSSm, aslo HTML5.</p>
+            <br>
+            <details>
+              <summary>Click it!</summary>
+                <p>Link to my github at the bottom of the page.</p>
+            </details>
+        </div>
+    </div>
+    <br />
+    <br />
+    <footer>
+        <h4 class="by-who">Designed by</h4>
+        <p class="initials"> <a href="https://github.com/PsimonL">&copy;Szymon Rogowski </a> at AGH UST in Kraków</p>
+    </footer>
+  </body>
+
+</html>
