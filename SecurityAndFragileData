@@ -1,0 +1,3 @@
+1. Some of files from settings.py as well as sqlite file should be kept as secrets in real life problem.
+2. This project is set only as university/school project.
+So there is no FRAGILE or worth securing data.
