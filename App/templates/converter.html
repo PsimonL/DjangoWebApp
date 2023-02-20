@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Currency Converter Web App</title>
+    <title>Currency Converter</title>
       {% load static %}
       <link rel="stylesheet" href="{% static 'css/converter.css' %}" />
       {% load static %}
@@ -43,7 +43,7 @@
           <form action="#">
             <div class="amount">
               <p>Enter Value</p>
-              <input type="text" id="enter" value="100"/> <!-- oninput="getValue()" -->
+                <label for="enter"></label><input type="text" id="enter" value="100"/> <!-- oninput="getValue()" -->
             </div>
             <div class="drop-list">
               <div class="from">
@@ -53,7 +53,7 @@
                        src="https://www.countryflagicons.com/FLAT/64/EU.png"
                        alt="flag"
                   />
-                  <select id="selector1">
+                    <label for="selector1"></label><select id="selector1">
                     <option value="US">USD</option>
                     <option value="EU" selected>EUR</option>
                     <option value="GB">GBP</option>
@@ -71,7 +71,7 @@
                     src="https://www.countryflagicons.com/FLAT/64/PL.png"
                     alt="flag"
                   />
-                  <select id="selector2">
+                    <label for="selector2"></label><select id="selector2">
                     <option value="US">USD</option>
                     <option value="EU">EUR</option>
                     <option value="GB">GBP</option>
