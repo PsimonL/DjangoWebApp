@@ -4,13 +4,13 @@
 // }
 
 // =====================================================================================================================
-var select1 = document.getElementById('selector1')
-var select2 = document.getElementById('selector2')
+const select1 = document.getElementById('selector1');
+const select2 = document.getElementById('selector2')
 function controlFlag(element, flagId) {
   element.addEventListener('change', function () {
-    var selectedCountry = element.value
-    var apiUrl = 'https://www.countryflagicons.com/FLAT/64/' + selectedCountry + '.png'
-    var flagImage = document.getElementById(flagId)
+    const selectedCountry = element.value
+    const apiUrl = 'https://www.countryflagicons.com/FLAT/64/' + selectedCountry + '.png'
+    const flagImage = document.getElementById(flagId)
     flagImage.src = apiUrl
   });
 }
