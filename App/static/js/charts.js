@@ -1,21 +1,63 @@
-console.log("Working!")
+const goToHomeButton =  document.getElementById('go-home')
+const goToConvButton =  document.getElementById('go-conv')
 
-const dict = {
-    "CH": "chf",
-    "PL": "pln",
-    "EU": "eur",
-    "GB": "gbp",
-    "US": "usd"
-};
+goToHomeButton.addEventListener('click', ()=>{
+    console.log('goToHomeButton working!')
+    window.location.href = 'home'
+})
+
+goToConvButton.addEventListener('click', ()=>{
+        console.log('goToConvButton working!')
+    window.location.href = 'conv'
+})
+
+console.log("Working!");
+
+import {dict} from './countryFlagCurrency.js';
+let valuesForBarChart = [];
+let labelsForBarChart = [];
+
 console.log("Before getData")
-for (let i = 1; i <= Object.keys(dict).length; i++) {
-    console.log("dict index = " + i )
+let currValDict = [];
+function getRates(currency_name) {
+    if(currency_name === "pln"){
+        console.log("Curr = pln and Val = 1");
+        return 1;
+    }
+    return fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${currency_name}`)
+        .then((response) => response.json())
+        .then(json_data => {
+            // console.log(json_data);
+            const value_in_pln = json_data.rates[0].mid;
+            console.log(`Curr = ${currency_name} and Val = ${ value_in_pln}`);
+            labelsForBarChart.push(currency_name);
+            valuesForBarChart.push(value_in_pln);
+            console.log(labelsForBarChart)
+            return {currency_name: value_in_pln};
+        })
+        .catch(error => {
+            console.error(error);
+        });
 }
-  // const response = await fetch('https://example.com/data');
-  // const data = await response.json();
-  // do something with the data
 
-console.log("After getData")
+
+for (const key of Object.keys(dict)) {
+    getRates(dict[key]);
+}
+
+// labelsForBarChart.push("pln");
+// valuesForBarChart.push(1);
+console.log(labelsForBarChart);
+console.log("labelsForBarChart length = " + labelsForBarChart.length)
+console.log(valuesForBarChart);
+console.log("valuesForBarChart length = " + valuesForBarChart.length)
+
+console.log("After getData");
+
+
+
+
+
 
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
@@ -30,10 +72,10 @@ const frameworks = ['React', 'Angular', 'Vue', 'Hyperapp', 'Omi'];
 const barChart = new Chart(ctxBarChart, {
  type: 'bar',
  data: {
-    labels: frameworks,
+    labels: labelsForBarChart,
     datasets: [{
         label: 'Github Stars',
-        data: stars,
+        data: valuesForBarChart,
          backgroundColor: [
              "rgba(255, 99, 132, 0.2)",
              "rgba(54, 162, 235, 0.2)",
@@ -53,11 +95,11 @@ const barChart = new Chart(ctxBarChart, {
 
 // const lineChart = new Chart(ctxLineChart, {
 //  type: 'line',
-//  data: {
-//     labels: frameworks,
+//  valuesForBarChart: {
+//     labelsForBarChart: frameworks,
 //     datasets: [{
 //         label: 'Github Stars',
-//         data: stars,
+//         valuesForBarChart: stars,
 //         backgroundColor: "rgba(255, 99, 132, 0.2)",
 //         borderColor: "rgba(255, 99, 132, 1)",
 //         borderWidth: 1,
