@@ -1,17 +1,21 @@
+const goToHomeButton =  document.getElementById('go-home')
+const goToConvButton =  document.getElementById('go-conv')
+
+goToHomeButton.addEventListener('click', ()=>{
+    console.log('goToHomeButton working!')
+    window.location.href = 'home'
+})
+
+goToConvButton.addEventListener('click', ()=>{
+        console.log('goToConvButton working!')
+    window.location.href = 'conv'
+})
+
 console.log("Working!");
 
 import {dict} from './countryFlagCurrency.js';
 let valuesForBarChart = [];
 let labelsForBarChart = [];
-
-// class CurrAndVal {
-//   constructor(curr, val) {
-//     this.curr = curr;
-//     this.val = val;
-//     labelsForBarChart.push(curr);
-//     valuesForBarChart.push(val);
-//   }
-// }
 
 console.log("Before getData")
 let currValDict = [];

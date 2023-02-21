@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Currency Exchange Charts</title>
     {% load static %}
       <link rel="stylesheet" href="{% static 'css/charts.css' %}" />
-
 </head>
 <body>
+    <div class="nav-bar">
+        <button id="go-home">HOMEPAGE</button>
+        <button id="go-conv">CURRENCY CONVERTER</button>
+    </div>
+    <br>
     <div class="chart">
         <p>asdad</p>
         <canvas id="barChart" ></canvas>
@@ -17,6 +21,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     {% load static %}
     <script type="module" src="{% static 'js/charts.js' %}"></script>
-
 </body>
 </html>
