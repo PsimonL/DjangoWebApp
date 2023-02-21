@@ -1,21 +1,58 @@
 console.log("Working!")
 
-const dict = {
-    "CH": "chf",
-    "PL": "pln",
-    "EU": "eur",
-    "GB": "gbp",
-    "US": "usd"
-};
-console.log("Before getData")
-for (let i = 1; i <= Object.keys(dict).length; i++) {
-    console.log("dict index = " + i )
+import {dict} from './countryFlagCurrency.js';
+let data = [];
+let labels = [];
+
+class CurrAndVal {
+  constructor(curr, val) {
+    this.curr = curr;
+    this.val = val;
+    labels.push(curr);
+      data.push(val);
+  }
 }
-  // const response = await fetch('https://example.com/data');
-  // const data = await response.json();
-  // do something with the data
+console.log("Before getData")
+let currValDict = [];
+function getRates(currency_name) {
+    if(currency_name === "pln"){
+        console.log("Curr = pln and Val = 1");
+        return 1;
+    }
+    return fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${currency_name}`)
+        .then((response) => response.json())
+        .then(json_data => {
+            // console.log(json_data);
+            const value_in_pln = json_data.rates[0].mid;
+            console.log(`Curr = ${currency_name} and Val = ${ value_in_pln}`);
+            // currValDict = Object.assign({}, currValDict, {currency_name: value_in_pln})
+            let obj = new CurrAndVal(currency_name, value_in_pln);
+            return {currency_name: value_in_pln};
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+
+for (const key of Object.keys(dict)) {
+    // console.log(key + ": " + dict[key])
+    getRates(dict[key])
+    // let X = getRates(dict[key])
+    // console.log(X)
+}
+
+labels.push("pln")
+data.push(1)
+console.log(labels)
+console.log(data)
 
 console.log("After getData")
+
+
+
+
+
 
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');

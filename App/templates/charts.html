@@ -5,6 +5,7 @@
     <title>Title</title>
     {% load static %}
       <link rel="stylesheet" href="{% static 'css/charts.css' %}" />
+
 </head>
 <body>
     <div class="chart">
@@ -15,6 +16,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     {% load static %}
-    <script src="{% static 'js/charts.js' %}"></script>
+    <script type="module" src="{% static 'js/charts.js' %}"></script>
+
 </body>
 </html>
