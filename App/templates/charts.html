@@ -9,7 +9,12 @@
 <body>
     <div class="chart">
         <p>asdad</p>
-        <canvas id="myChart" ></canvas>
+        <canvas id="barChart" ></canvas>
+        <br>
+        <canvas id="lineChart" ></canvas>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    {% load static %}
+    <script src="{% static 'js/charts.js' %}"></script>
 </body>
 </html>
