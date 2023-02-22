@@ -33,8 +33,10 @@ async function setter(){
     const currencyNames = Object.values(dict);
     return await getRates(currencyNames);
 }
+//======================================================================================================================
 
-
+const country = document.getElementById('country');
+import {controlFlag} from './converter.js';
 
 async function get10USD(){
     const response = await fetch('http://api.nbp.pl/api/exchangerates/rates/a/usd/last/10/?format=json');
@@ -55,6 +57,7 @@ async function setter10USD(){
     return await get10USD();
 }
 
+//======================================================================================================================
 //======================================================================================================================
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
