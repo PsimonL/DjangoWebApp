@@ -11,84 +11,29 @@ goToConvButton.addEventListener('click', ()=>{
     window.location.href = 'conv'
 })
 
-console.log("Working!");
+console.log("Working");
+console.log("Before getRates")
 
-import {dict} from './countryFlagCurrency.js';
-let valuesForBarChart = [];
-let labelsForBarChart = [];
-
-console.log("Before getData")
-let currValDict = [];
-
-async function getRates(currencyNames) {
-        if (currencyNames === "pln") {
+async function getRates(currency_name) {
+        if (currency_name === "pln") {
         console.log("Curr = pln and Val = 1");
         return 1;
     }
       const result = {};
-    for (const currencyName of currencyNames) {
-        const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${currencyName}`);
+    for (const it of currency_name) {
+        const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${it}`);
         const data = await response.json();
-        const valueInPLN = data.rates[0].mid;
-        result[currencyName] = valueInPLN;
+        result[it] = data.rates[0].mid;
   }
-    console.log("RESULT = " + result);
     result["pln"] = 1;
     return result;
-//     let currency_name = ""
-//     for (const key of Object.keys(dict)) {
-//         currency_name = dict[key];
-//
-//     if (currency_name === "pln") {
-//         console.log("Curr = pln and Val = 1");
-//         return 1;
-//     }
-//     try {
-//         const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${currency_name}`);
-//         const json_data = await response.json();
-//         const value_in_pln = json_data.rates[0].mid;
-//         console.log(`Curr = ${currency_name} and Val = ${value_in_pln}`);
-//         labelsForBarChart.push(currency_name);
-//         valuesForBarChart.push(value_in_pln);
-//         console.log(labelsForBarChart)
-//         return {currency_name: value_in_pln};
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 }
 
+console.log("Before setter")
 async function setter(){
     const currencyNames = ["chf", "eur", "gbp", "usd"];
-    // const lolo = getRates(currencyNames)
-    // .then(result => {
-    //     console.log("lolo keys = " + Object.keys(result));
-    //     console.log("lolo values = " + Object.values(result));
-    // })
-    // .catch(error => {
-    //     console.error(error);
-    // });
-    const result = await getRates(currencyNames);
-    console.log(result);
-    const values = Object.values(result);
-    console.log("lolo values = " + values);
-    const keys = Object.keys(result);
-    console.log("lolo keys = " + keys);
-    // await getterValues(values);
-    // await getterKeys(keys);
-    return result;
+    return await getRates(currencyNames);
 }
-setter()
-
-// async function getterValues(argVal){
-//     console.log("getterValues = " + argVal);
-//     return argVal;
-// }
-//
-// async function getterKeys(argName){
-//     console.log("getterKeys = " + argName);
-//     return argName;
-// }
 
 //======================================================================================================================
 const ctxBarChart = document.getElementById('barChart');
@@ -97,23 +42,21 @@ const ctxLineChart = document.getElementById('lineChart');
 const stars = [135850, 52122, 148825, 16939, 9763];
 const frameworks = ['React', 'Angular', 'Vue', 'Hyperapp', 'Omi'];
 
+console.log("Before charts")
 async function charts() {
-    const result = await setter();
-
-    console.log("CHARTS result = " + result);
-
-    const values = Object.values(result);
-    console.log("CHARTS result values = " + values);
-    const keys = Object.keys(result);
-    console.log("CHARTS result keys = " + keys);
-
+    const resultBarChart = await setter();
+    console.log("CHARTS resultBarChart = " + resultBarChart);
+    const valuesBarChart = Object.values(resultBarChart);
+    console.log("CHARTS resultBarChart valuesForBarChart = " + valuesBarChart);
+    const keysBarChart = Object.keys(resultBarChart);
+    console.log("CHARTS resultBarChart keysForBarChart = " + keysBarChart);
     new Chart(ctxBarChart, {
         type: 'bar',
         data: {
-            labels: frameworks,
+            labels: keysBarChart,
             datasets: [{
                 label: 'Github Stars',
-                data: stars,
+                data: valuesBarChart,
                 backgroundColor: [
                     "rgba(255, 99, 132, 0.2)",
                     "rgba(54, 162, 235, 0.2)",
@@ -131,21 +74,7 @@ async function charts() {
         },
     })
 
-// const lineChart = new Chart(ctxLineChart, {
-//  type: 'line',
-//  valuesForBarChart: {
-//     labelsForBarChart: frameworks,
-//     datasets: [{
-//         label: 'Github Stars',
-//         valuesForBarChart: stars,
-//         backgroundColor: "rgba(255, 99, 132, 0.2)",
-//         borderColor: "rgba(255, 99, 132, 1)",
-//         borderWidth: 1,
-//         // fill: false,
-//         // lineTension: 0
-//     }]
-//  },
-// })
+
 
     new Chart(ctxLineChart, {
         type: 'line',
@@ -163,4 +92,4 @@ async function charts() {
         },
     })
 }
-charts()
+charts().then(r => {console.log(" " + r); console.log("Finished");}).catch(error => console.log(error))
