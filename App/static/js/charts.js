@@ -34,6 +34,27 @@ async function setter(){
     return await getRates(currencyNames);
 }
 
+
+
+async function get10USD(){
+    const response = await fetch('http://api.nbp.pl/api/exchangerates/rates/a/usd/last/10/?format=json');
+    const data = await response.json();
+    const result = {};
+    for(let i = 0; i < 10; i++){
+        let rates = data['rates'];
+        let whichDict = rates[i];
+        let value = whichDict['mid'];
+        let datetime = whichDict['effectiveDate'];
+        console.log(`${datetime} USD${i} = ${value}`);
+        result[datetime] = value;
+    }
+    console.log(result);
+    return result;
+}
+async function setter10USD(){
+    return await get10USD();
+}
+
 //======================================================================================================================
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
@@ -84,13 +105,20 @@ async function charts() {
     })
 
 
+
+    const resultLineChart = await setter10USD();
+    console.log("CHARTS resultLineChart = " + resultLineChart);
+    const valuesLineChart = Object.values(resultLineChart);
+    console.log("CHARTS resultLineChart valuesForLineChart = " + valuesLineChart);
+    const keysLineChart = Object.keys(resultLineChart);
+    console.log("CHARTS resultLineChart keysForLineChart = " + keysLineChart);
     new Chart(ctxLineChart, {
         type: 'line',
         data: {
-            labels: keysBarChart,
+            labels: keysLineChart,
             datasets: [{
-                label: 'Currency value line chart',
-                data: valuesBarChart,
+                label: 'Currency value line chart for USD for past 10 days',
+                data: valuesLineChart,
                 backgroundColor: "rgba(255, 99, 132, 0.2)",
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
@@ -106,7 +134,7 @@ async function charts() {
                     ticks: {
                         beginAtZero: true,
                         min: 0,
-                        max: 20
+                        max: 6
                     }
                 }]
             }
