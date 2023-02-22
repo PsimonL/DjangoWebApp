@@ -1,0 +1,53 @@
+// Refresh after 5 seconds
+
+// const chartData = {
+//   labels: [],
+//   datasets: [{
+//     label: 'Stock Price',
+//     data: []
+//   }]
+// };
+//
+// const chartOptions = {
+//   responsive: true,
+//   scales: {
+//     xAxes: [{
+//       type: 'time',
+//       time: {
+//         unit: 'minute'
+//       }
+//     }],
+//     yAxes: [{
+//       ticks: {
+//         min: 0,
+//         max: 100
+//       }
+//     }]
+//   }
+// };
+//
+// const ctx = document.getElementById('myChart').getContext('2d');
+// const myChart = new Chart(ctx, {
+//   type: 'line',
+//   data: chartData,
+//   options: chartOptions
+// });
+//
+// setInterval(() => {
+//   fetch('https://api.example.com/stock-market-data')
+//     .then(response => response.json())
+//     .then(data => {
+//       chartData.labels.push(new Date());
+//       chartData.datasets[0].data.push(data.price);
+//
+//       if (chartData.labels.length > 20) {
+//         chartData.labels.shift();
+//         chartData.datasets[0].data.shift();
+//       }
+//
+//       myChart.update();
+//     })
+//     .catch(error => {
+//       console.error(error);
+//     });
+// }, 5000);

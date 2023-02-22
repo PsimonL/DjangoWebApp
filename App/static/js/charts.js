@@ -15,12 +15,9 @@ console.log("Working");
 console.log("Before getRates")
 
 async function getRates(currency_name) {
-        if (currency_name === "pln") {
-        console.log("Curr = pln and Val = 1");
-        return 1;
-    }
-      const result = {};
+    const result = {};
     for (const it of currency_name) {
+        if(it ==='pln'){ continue; }
         const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${it}`);
         const data = await response.json();
         result[it] = data.rates[0].mid;
@@ -30,17 +27,16 @@ async function getRates(currency_name) {
 }
 
 console.log("Before setter")
+import {dict} from './countryFlagCurrency.js';
 async function setter(){
-    const currencyNames = ["chf", "eur", "gbp", "usd"];
+    // const currencyNames = ["chf", "eur", "gbp", "usd"];
+    const currencyNames = Object.values(dict);
     return await getRates(currencyNames);
 }
 
 //======================================================================================================================
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
-
-const stars = [135850, 52122, 148825, 16939, 9763];
-const frameworks = ['React', 'Angular', 'Vue', 'Hyperapp', 'Omi'];
 
 console.log("Before charts")
 async function charts() {
@@ -55,7 +51,7 @@ async function charts() {
         data: {
             labels: keysBarChart,
             datasets: [{
-                label: 'Github Stars',
+                label: 'Currency value bar chart',
                 data: valuesBarChart,
                 backgroundColor: [
                     "rgba(255, 99, 132, 0.2)",
@@ -72,17 +68,29 @@ async function charts() {
                 borderWidth: 1
             }]
         },
+        options: {
+            // maintainAspectRatio: false,
+            // responsive: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10
+                    }
+                }]
+            }
+        }
     })
-
 
 
     new Chart(ctxLineChart, {
         type: 'line',
         data: {
-            labels: frameworks,
+            labels: keysBarChart,
             datasets: [{
-                label: 'Github Stars',
-                data: stars,
+                label: 'Currency value line chart',
+                data: valuesBarChart,
                 backgroundColor: "rgba(255, 99, 132, 0.2)",
                 borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
@@ -90,6 +98,19 @@ async function charts() {
                 // lineTension: 0
             }]
         },
+        options: {
+            // maintainAspectRatio: false,
+            // responsive: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 20
+                    }
+                }]
+            }
+        }
     })
 }
 charts().then(r => {console.log(" " + r); console.log("Finished");}).catch(error => console.log(error))
