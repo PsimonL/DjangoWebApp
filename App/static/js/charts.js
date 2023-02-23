@@ -35,8 +35,9 @@ async function setter(){
 }
 //======================================================================================================================
 
-const country = document.getElementById('country');
-import {controlFlag} from './converter.js';
+const select = document.getElementById('select');
+
+
 
 async function get10USD(){
     const response = await fetch('http://api.nbp.pl/api/exchangerates/rates/a/usd/last/10/?format=json');

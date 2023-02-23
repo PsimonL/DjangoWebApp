@@ -25,7 +25,14 @@ const valueForOutput = document.getElementById('conversion');
 const conversionButton =  document.querySelector('.exchange-button');
 const outputRatio = document.getElementById('conversion');
 
-import {dict} from './countryFlagCurrency.js';
+const dict = {
+    "CH": "chf",
+    "PL": "pln",
+    "EU": "eur",
+    "GB": "gbp",
+    "US": "usd"
+};
+
 let curr1Val = pickedCurrency1.value;
 const curr1Name = dict[curr1Val];
 let curr2Val = pickedCurrency2.value;
