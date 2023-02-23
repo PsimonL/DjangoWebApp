@@ -5,6 +5,8 @@
     <title>Currency Exchange Charts</title>
     {% load static %}
       <link rel="stylesheet" href="{% static 'css/charts.css' %}" />
+        {% load static %}
+    <script type="module" defer src="{% static 'js/charts.js' %}"></script>
 </head>
 <body>
     <div class="nav-bar">
@@ -17,19 +19,18 @@
         <canvas id="barChart" ></canvas>
         <br>
             <div class="line-chart-flag">
-                <p>To</p>
                 <div class="select-box">
                   <img
-                    id="flag"
-                    src="https://www.countryflagicons.com/FLAT/64/EU.png"
-                    alt="flag"
+                          id="flag"
+                          src="https://www.countryflagicons.com/FLAT/64/EU.png"
+                          alt="flag"
                   />
-                    <label for="select"></label><select id="select">
+                    <label for="selector"></label><select id="selector">
                     <option value="US">USD</option>
-                    <option value="EU">EUR</option>
+                    <option value="EU" selected>EUR</option>
                     <option value="GB">GBP</option>
                     <option value="CH">FR</option>
-                    <option value="PL" selected>PLN</option>
+                    <option value="PL">PLN</option>
                   </select>
                 </div>
             </div>
