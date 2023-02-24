@@ -26,6 +26,10 @@ body{
   border-radius: 10px;
   margin: 0 10px
 }
+.nav-bar #go-home{
+      background-color: green;
+}
+
 .main{
      margin: auto;
     background: #AA6C46;
