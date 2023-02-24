@@ -33,7 +33,17 @@ async function setter(){
     const currencyNames = Object.values(dict);
     return await getRates(currencyNames);
 }
+//======================================================================================================================
 
+
+function controlFlag(selector, flagId) {
+    const element = document.getElementById(selector);
+    element.addEventListener('change', function () {
+        const flagImage = document.getElementById(flagId);
+        flagImage.src = 'https://www.countryflagicons.com/FLAT/64/' + element.value + '.png';
+      });
+}
+controlFlag('selector', 'flag');
 
 
 async function get10USD(){
@@ -55,6 +65,7 @@ async function setter10USD(){
     return await get10USD();
 }
 
+//======================================================================================================================
 //======================================================================================================================
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
