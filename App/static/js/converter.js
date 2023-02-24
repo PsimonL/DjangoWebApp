@@ -5,13 +5,7 @@ const valueForOutput = document.getElementById('conversion');
 const conversionButton =  document.querySelector('.exchange-button');
 const outputRatio = document.getElementById('conversion');
 
-const dict = {
-    "CH": "chf",
-    "PL": "pln",
-    "EU": "eur",
-    "GB": "gbp",
-    "US": "usd"
-};
+import {dict} from './countryFlagCurrency.js'
 
 const select1 = document.getElementById('selector1');
 const select2 = document.getElementById('selector2');
@@ -41,7 +35,7 @@ controlFlag(select2, 'flag2');
 // =====================================================================================================================
 // default
 let curr1Val = pickedCurrency1.value;
-// console.log(`curr1Val dsaaaaaaaaaaaaaaaa= ${curr1Val}` )
+// console.log(`curr1Val = ${curr1Val}` )
 let curr1Name = dict[curr1Val];
 // console.log(`curr1Name = ${curr1Name}` )
 
@@ -58,7 +52,7 @@ function getRates(currency_name) {
         .then(json_data => {
             console.log(json_data);
             const value_in_pln = json_data.rates[0].mid;
-            console.log(`currency_name = ${currency_name} and value_in_pln = ${value_in_pln}`);
+            // console.log(`currency_name = ${currency_name} and value_in_pln = ${value_in_pln}`);
             return value_in_pln;
         })
         .catch(error => {
@@ -70,20 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (conversionButton) {
     conversionButton.addEventListener('click', () => {
         console.log('Button clicked!');
-        // TODO: fix changing curr1Name and curr2Name
+        // TOD0: goes 2 times and gives duplicates - probably document event listener or
+        // TOD0: promise all, that's why arr.splice(0, arr.length) to clear whole content of arrays
         let fromFlag = fromCurr.slice(-1)[0];
         let toFlag = toCurr.slice(-1)[0];
         if (fromFlag === undefined) { fromFlag = "EU"; }
         if(toFlag === undefined) { toFlag = "PL"; }
-        console.log("fromFlag = " + fromFlag + " and toFlag = " + toFlag);
-        console.log("fromCurr = " + dict[fromFlag] + " and toCurr = " + dict[toFlag]);
+        // console.log("fromFlag = " + fromFlag + " and toFlag = " + toFlag);
+        // console.log("fromCurr = " + dict[fromFlag] + " and toCurr = " + dict[toFlag]);
 
         Promise.all([getRates(dict[fromFlag]), getRates(dict[toFlag])])
         .then(values => {
             const tab = values;
-            console.log(`${dict[fromFlag]} = ${tab[0]}; ${dict[toFlag]} = ${tab[1]};`);
-            console.log(`${pickedCurrency1.value} to ${pickedCurrency2.value} = ${(tab[0] / tab[1]).toFixed(4)}`);
-            console.log(`Amount for ${dict[fromFlag]} to ${dict[toFlag]}: ${valueForInput.value}`);
+            // console.log(`${dict[fromFlag]} = ${tab[0]}; ${dict[toFlag]} = ${tab[1]};`);
+            // console.log(`${pickedCurrency1.value} to ${pickedCurrency2.value} = ${(tab[0] / tab[1]).toFixed(4)}`);
+            // console.log(`Amount for ${dict[fromFlag]} to ${dict[toFlag]}: ${valueForInput.value}`);
             let valueForOutput = valueForInput.value * ((tab[0] / tab[1]).toFixed(2));
             console.log("Value for output = " + valueForOutput);
             outputRatio.innerHTML = `${valueForInput.value} ${dict[fromFlag]} => ${valueForOutput} ${dict[toFlag]}`

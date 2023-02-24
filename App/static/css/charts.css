@@ -28,9 +28,30 @@ body{
 }
 
 .charts{
-    width: 60%;
+  margin: auto;
+  width: 50%;
+  /*padding: 10px;*/
     height: 60%;
   justify-content: center;
   align-items: center;
-  margin: 0 100px;
+  /*margin: 0 100px;*/
+        /*margin: auto;*/
+    background: #AA6C46;
+    background: -moz-linear-gradient(left, #AA6C46 0%, #62BC72 50%, #A2CDFF 100%);
+    background: -webkit-linear-gradient(left, #AA6C46 0%, #62BC72 50%, #A2CDFF 100%);
+    background: linear-gradient(to right, #AA6C46 0%, #62BC72 50%, #A2CDFF 100%);
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 100%;
+}
+p{
+    color: black;
+    background: white;
+        border-radius: 10px;
+    text-align: center;
+}
+canvas{
+    background: white;
+        border-radius: 10px;
 }
