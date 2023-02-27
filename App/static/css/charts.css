@@ -49,7 +49,7 @@ body{
     font-size: 100%;
 }
 
-p{
+p .charts{
     color: black;
     background: white;
         border-radius: 10px;
