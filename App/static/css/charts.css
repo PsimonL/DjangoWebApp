@@ -49,9 +49,6 @@ body{
     font-size: 100%;
 }
 
-.charts .select-box{
-
-}
 p{
     color: black;
     background: white;
@@ -61,4 +58,12 @@ p{
 canvas{
     background: white;
         border-radius: 10px;
+}
+footer {
+    background:#A2CDFF;
+    overflow-x: hidden;
+    padding: 8vmin 15vmin;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 150%;
 }
