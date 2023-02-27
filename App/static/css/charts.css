@@ -48,6 +48,10 @@ body{
     padding: 15px;
     font-size: 100%;
 }
+
+.charts .select-box{
+
+}
 p{
     color: black;
     background: white;
