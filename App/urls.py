@@ -4,7 +4,7 @@ from . import views
 
 # URLconf
 urlpatterns = [
-    path('home', views.get_homepage, name='homepage'),
+    path('', views.get_homepage, name='homepage'),
     path('conv', views.get_converter, name='converter'),
     path('charts', views.get_charts, name='charts'),
 ]
