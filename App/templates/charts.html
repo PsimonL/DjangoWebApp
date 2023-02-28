@@ -11,33 +11,42 @@
 <body>
     <div class="nav-bar">
         <button id="go-home">HOMEPAGE</button>
-        <button id="go-conv">CURRENCY CONVERTER</button>
+        <button id="go-conv">CURRENCIES CONVERTER</button>
+        <button id="go-charts">CURRENCIES CHARTS</button>
     </div>
     <br>
     <div class="charts">
-        <p>asdad</p>
+        <p>Bar chart for every currency value in Polish PLN: </p>
         <canvas id="barChart" ></canvas>
         <br>
-            <div class="line-chart-flag">
-                <div class="select-box">
-                  <img
-                          id="flag"
-                          src="https://www.countryflagicons.com/FLAT/64/EU.png"
-                          alt="flag"
-                  />
-                    <label for="selector"></label><select id="selector">
-                    <option value="US">USD</option>
-                    <option value="EU" selected>EUR</option>
-                    <option value="GB">GBP</option>
-                    <option value="CH">FR</option>
-                    <option value="PL">PLN</option>
-                  </select>
-                </div>
-            </div>
+        <br>
+        <p>Chose country: </p>
+        <div class="select-box">
+          <img
+                  id="flag"
+                  src="https://www.countryflagicons.com/FLAT/64/EU.png"
+                  alt="flag"
+          />
+            <label for="selector"></label><select id="selector">
+            <option value="US">USD</option>
+            <option value="EU" selected>EUR</option>
+            <option value="GB">GBP</option>
+            <option value="CH">FR</option>
+            <option value="PL">PLN</option>
+          </select>
+        </div>
+        <p>Line chart for chosen currency for picked past 10 days: </p>
         <canvas id="lineChart" ></canvas>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     {% load static %}
     <script type="module" src="{% static 'js/charts.js' %}"></script>
+    <br />
+    <br />
+    <footer>
+        <h4 class="by-who">Designed by</h4>
+        <p class="initials"> <a href="https://github.com/PsimonL">&copy;Szymon Rogowski
+        </a> at AGH University of Science and Technology in Kraków, Poland.</p>
+    </footer>
 </body>
 </html>
