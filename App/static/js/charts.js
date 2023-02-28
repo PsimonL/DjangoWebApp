@@ -1,19 +1,22 @@
-const goToHomeButton =  document.getElementById('go-home')
-const goToConvButton =  document.getElementById('go-conv')
+const goToHomeButton =  document.getElementById('go-home');
+const goToConvButton =  document.getElementById('go-conv');
+const goToChartsButton =  document.getElementById('go-charts');
 
 goToHomeButton.addEventListener('click', ()=>{
-    console.log('goToHomeButton working!')
-    window.location.href = 'home'
-})
+    console.log('goToHomeButton working!');
+    window.location.href = '/';
+});
 
 goToConvButton.addEventListener('click', ()=>{
-        console.log('goToConvButton working!')
-    window.location.href = 'conv'
-})
+        console.log('goToConvButton working!');
+    window.location.href = '/conv';
+});
 
-console.log("Working");
-console.log("Before getRates")
-
+goToChartsButton.addEventListener('click', ()=>{
+    window.alert("That's your current location!!!");
+});
+// =====================================================================================================================
+// console.log("Before getRates");
 async function getRates(currency_name) {
     const result = {};
     for (const it of currency_name) {
@@ -26,7 +29,7 @@ async function getRates(currency_name) {
     return result;
 }
 
-console.log("Before setter")
+// console.log("Before setter")
 import {dict} from './countryFlagCurrency.js';
 async function setter(){
     // const currencyNames = ["chf", "eur", "gbp", "usd"];

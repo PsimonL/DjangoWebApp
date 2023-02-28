@@ -7,13 +7,13 @@ body{
     position: center;
 }
 
-.topnav {
+#nav-bar {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 100px;
 }
-.topnav button{
+#nav-bar button {
   background-color: #AA6C46;
   border: none;
   color: white;
@@ -26,7 +26,7 @@ body{
   border-radius: 10px;
   margin: 0 10px
 }
-.nav-bar #go-home{
+#nav-bar #go-home{
       background-color: green;
 }
 

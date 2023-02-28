@@ -1,3 +1,21 @@
+const goToHomeButton =  document.getElementById('go-home');
+const goToChartsButton =  document.getElementById('go-charts');
+const goToConvButton =  document.getElementById('go-conv');
+
+goToHomeButton.addEventListener('click', ()=>{
+    console.log('goToHomeButton working!');
+    window.location.href = '/';
+});
+
+goToChartsButton.addEventListener('click', ()=>{
+        console.log('goToChartsButton working!');
+    window.location.href = '/charts';
+});
+goToConvButton.addEventListener('click', ()=>{
+    window.alert("That's your current location!!!");
+});
+// =====================================================================================================================
+
 const pickedCurrency1 = document.getElementById('selector1');
 const pickedCurrency2 = document.getElementById('selector2');
 const valueForInput = document.getElementById('enter');
@@ -35,13 +53,10 @@ controlFlag(select2, 'flag2');
 // =====================================================================================================================
 // default
 let curr1Val = pickedCurrency1.value;
-// console.log(`curr1Val = ${curr1Val}` )
 let curr1Name = dict[curr1Val];
-// console.log(`curr1Name = ${curr1Name}` )
-
 let curr2Val = pickedCurrency2.value;
 let curr2Name = dict[curr2Val];
-// console.log(`curr2Name = ${curr2Name}` )
+//...
 
 // =====================================================================================================================
 // for button
@@ -52,7 +67,6 @@ function getRates(currency_name) {
         .then(json_data => {
             console.log(json_data);
             const value_in_pln = json_data.rates[0].mid;
-            // console.log(`currency_name = ${currency_name} and value_in_pln = ${value_in_pln}`);
             return value_in_pln;
         })
         .catch(error => {
@@ -70,8 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let toFlag = toCurr.slice(-1)[0];
         if (fromFlag === undefined) { fromFlag = "EU"; }
         if(toFlag === undefined) { toFlag = "PL"; }
-        // console.log("fromFlag = " + fromFlag + " and toFlag = " + toFlag);
-        // console.log("fromCurr = " + dict[fromFlag] + " and toCurr = " + dict[toFlag]);
 
         Promise.all([getRates(dict[fromFlag]), getRates(dict[toFlag])])
         .then(values => {
