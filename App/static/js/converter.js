@@ -31,7 +31,6 @@ const select2 = document.getElementById('selector2');
 
 let fromCurr = [];
 let toCurr = [];
-
 function controlFlag(element, flagId) {
   element.addEventListener('change', function () {
     const selectedCountry = element.value;
