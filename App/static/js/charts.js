@@ -37,14 +37,6 @@ async function setter(){
     return await getRates(currencyNames);
 }
 //======================================================================================================================
-// const dict = {
-//     "CH": "chf",
-//     "PL": "pln",
-//     "EU": "eur",
-//     "GB": "gbp",
-//     "US": "usd"
-// };
-
 let currPicked = [];
 const select = document.getElementById('selector');
 function controlFlag(element, flagId) {
@@ -57,7 +49,7 @@ function controlFlag(element, flagId) {
         currPicked.splice(0, currPicked.length);
         currPicked.push(dict[selectedCountry]);
         console.log("NEW: currPicked = " + currPicked);
-        charts().then(r => {console.log(" " + r); console.log("Finished");}).catch(error => console.log(error))
+        plottingLineChart().then(r => {console.log(" " + r); console.log("Finished");}).catch(error => console.log(error))
       });
 }
 controlFlag(select, 'flag');
@@ -109,8 +101,7 @@ async function get10PastDays() {
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
 
-// console.log("Before charts")
-async function charts() {
+async function plottingBarChart(){
     const resultBarChart = await setter();
     // console.log("CHARTS resultBarChart = " + resultBarChart);
     const valuesBarChart = Object.values(resultBarChart);
@@ -153,10 +144,66 @@ async function charts() {
             }
         }
     })
+}
+plottingBarChart();
 
 
-    currPicked.push(dict["EU"]);
-    console.log("currPicked = " + currPicked)
+
+//======================================================================================================================
+async function defaultLineChart(){
+    let eur = 'eur';
+    const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${eur}/last/10/?format=json`);
+    const data = await response.json();
+    const result = {};
+    for (let i = 0; i < 10; i++) {
+        let rates = data['rates'];
+        let whichDict = rates[i];
+        let value = whichDict['mid'];
+        let datetime = whichDict['effectiveDate'];
+        console.log(`${datetime} eur${i} = ${value}`);
+        result[datetime] = value;
+    }
+    const valuesLineChart = Object.values(result);
+    // console.log("CHARTS resultLineChart valuesForLineChart = " + valuesLineChart);
+    const keysLineChart = Object.keys(result);
+    console.log("result keys = " + keysLineChart);
+    console.log("result values = " + valuesLineChart);
+    // return result;
+    new Chart(ctxLineChart, {
+    type: 'line',
+    data: {
+        labels: keysLineChart,
+        datasets: [{
+            label: 'Currency value line chart for picked currency for past 10 days',
+            data: valuesLineChart,
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+            // fill: false,
+            // lineTension: 0
+        }]
+    },
+    options: {
+        // maintainAspectRatio: false,
+        // responsive: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 6
+                }
+            }]
+        }
+    }
+    })
+}
+defaultLineChart();
+
+// console.log("Before plottingLineChart")
+async function plottingLineChart() {
+    // currPicked.push(dict["EU"]);
+    // console.log("currPicked = " + currPicked)
     const resultLineChart = await get10PastDays();
     // console.log("CHARTS resultLineChart = " + resultLineChart);
     const valuesLineChart = Object.values(resultLineChart);
