@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
 body{
     overflow: auto;
     align-items: center;
@@ -13,6 +20,7 @@ body{
   align-items: center;
   margin: 0 100px;
 }
+
 .nav-bar button{
   background-color: #AA6C46;
   border: none;
@@ -49,11 +57,35 @@ body{
     font-size: 100%;
 }
 
-p .charts{
-    color: black;
-    background: white;
-        border-radius: 10px;
-    text-align: center;
+.charts p{
+    font-size: 20px;
+    color: #000000;
+    font-weight: 600;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+}
+
+.select-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Style the select element */
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+select option {
+  background-color: #fff;
+  color: #000;
+}
+select option:checked {
+  background-color: #007bff;
+  color: #fff;
 }
 canvas{
     background: white;

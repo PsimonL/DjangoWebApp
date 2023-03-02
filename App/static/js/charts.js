@@ -1,3 +1,4 @@
+// Navigation buttons
 const goToHomeButton =  document.getElementById('go-home');
 const goToConvButton =  document.getElementById('go-conv');
 const goToChartsButton =  document.getElementById('go-charts');
@@ -16,7 +17,7 @@ goToChartsButton.addEventListener('click', ()=>{
     window.alert("That's your current location!!!");
 });
 // =====================================================================================================================
-// console.log("Before getRates");
+// Functions for Bar Chart
 async function getRates(currency_name) {
     const result = {};
     for (const it of currency_name) {
@@ -31,12 +32,14 @@ async function getRates(currency_name) {
 
 // console.log("Before setter")
 import {dict} from './countryFlagCurrency.js';
+
 async function setter(){
     // const currencyNames = ["chf", "eur", "gbp", "usd"];
     const currencyNames = Object.values(dict);
     return await getRates(currencyNames);
 }
 //======================================================================================================================
+// Functions for Line Chart
 let currPicked = [];
 const select = document.getElementById('selector');
 function controlFlag(element, flagId) {
@@ -49,7 +52,7 @@ function controlFlag(element, flagId) {
         currPicked.splice(0, currPicked.length);
         currPicked.push(dict[selectedCountry]);
         console.log("NEW: currPicked = " + currPicked);
-        plottingLineChart().then(r => {console.log(" " + r); console.log("Finished");}).catch(error => console.log(error))
+        plottingLineChart().then(r => {console.log(r)}).catch(error => console.log(error));
       });
 }
 controlFlag(select, 'flag');
@@ -98,6 +101,7 @@ async function get10PastDays() {
 
 //======================================================================================================================
 //======================================================================================================================
+// Plotting charts
 const ctxBarChart = document.getElementById('barChart');
 const ctxLineChart = document.getElementById('lineChart');
 
@@ -145,72 +149,11 @@ async function plottingBarChart(){
         }
     })
 }
-plottingBarChart();
-
-
+plottingBarChart().then(r => {console.log(r)}).catch(error => console.log(error));
 
 //======================================================================================================================
-async function defaultLineChart(){
-    let eur = 'eur';
-    const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${eur}/last/10/?format=json`);
-    const data = await response.json();
-    const result = {};
-    for (let i = 0; i < 10; i++) {
-        let rates = data['rates'];
-        let whichDict = rates[i];
-        let value = whichDict['mid'];
-        let datetime = whichDict['effectiveDate'];
-        console.log(`${datetime} eur${i} = ${value}`);
-        result[datetime] = value;
-    }
-    const valuesLineChart = Object.values(result);
-    // console.log("CHARTS resultLineChart valuesForLineChart = " + valuesLineChart);
-    const keysLineChart = Object.keys(result);
-    console.log("result keys = " + keysLineChart);
-    console.log("result values = " + valuesLineChart);
-    // return result;
-    new Chart(ctxLineChart, {
-    type: 'line',
-    data: {
-        labels: keysLineChart,
-        datasets: [{
-            label: 'Currency value line chart for picked currency for past 10 days',
-            data: valuesLineChart,
-            backgroundColor: "rgba(255, 99, 132, 0.2)",
-            borderColor: "rgba(255, 99, 132, 1)",
-            borderWidth: 1,
-            // fill: false,
-            // lineTension: 0
-        }]
-    },
-    options: {
-        // maintainAspectRatio: false,
-        // responsive: false,
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 6
-                }
-            }]
-        }
-    }
-    })
-}
-defaultLineChart();
-
-// console.log("Before plottingLineChart")
-async function plottingLineChart() {
-    // currPicked.push(dict["EU"]);
-    // console.log("currPicked = " + currPicked)
-    const resultLineChart = await get10PastDays();
-    // console.log("CHARTS resultLineChart = " + resultLineChart);
-    const valuesLineChart = Object.values(resultLineChart);
-    // console.log("CHARTS resultLineChart valuesForLineChart = " + valuesLineChart);
-    const keysLineChart = Object.keys(resultLineChart);
-    // console.log("CHARTS resultLineChart keysForLineChart = " + keysLineChart);
-    new Chart(ctxLineChart, {
+function retConfig(keysLineChart, valuesLineChart) {
+    return {
         type: 'line',
         data: {
             labels: keysLineChart,
@@ -237,5 +180,33 @@ async function plottingLineChart() {
                 }]
             }
         }
-    })
+    };
+}
+
+async function defaultLineChart(){
+    let eur = 'eur';
+    const response = await fetch(`http://api.nbp.pl/api/exchangerates/rates/a/${eur}/last/10/?format=json`);
+    const data = await response.json();
+    const result = {};
+    for (let i = 0; i < 10; i++) {
+        let rates = data['rates'];
+        let whichDict = rates[i];
+        let value = whichDict['mid'];
+        let datetime = whichDict['effectiveDate'];
+        console.log(`${datetime} eur${i} = ${value}`);
+        result[datetime] = value;
+    }
+    const valuesLineChart = Object.values(result);
+    const keysLineChart = Object.keys(result);
+    console.log("result keys = " + keysLineChart);
+    console.log("result values = " + valuesLineChart);
+    new Chart(ctxLineChart, retConfig(keysLineChart, valuesLineChart));
+}
+defaultLineChart();
+
+async function plottingLineChart() {
+    const resultLineChart = await get10PastDays();
+    const valuesLineChart = Object.values(resultLineChart);
+    const keysLineChart = Object.keys(resultLineChart);
+    new Chart(ctxLineChart, retConfig(keysLineChart, valuesLineChart));
 }

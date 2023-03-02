@@ -123,7 +123,20 @@ form .drop-list{
     justify-content: space-between;
     margin: 10px 10px 30px 10px;
 }
-
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+select option {
+  background-color: #fff;
+  color: #000;
+}
+select option:checked {
+  background-color: #007bff;
+  color: #fff;
+}
 .drop-list .select-box{
     display: flex;
 }
