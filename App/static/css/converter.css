@@ -94,6 +94,10 @@ background: linear-gradient(to right, #AA6C46 0%, #62BC72 50%, #A2CDFF 100%);
     width: 600px;
         font-size: 100%;
 }
+
+.from-to{
+    font-size: 20px;
+}
 form :where(input, select, button){
     width: 100%;
     border-radius: 4px;
@@ -145,7 +149,11 @@ form .exchange-button{
     margin: 10px 10px 30px 10px;
     font-size: 30px;
 }
-
+#conversion{
+    text-align: center;
+    font-weight: 600;
+    font-size: 25px;
+}
 #flag{
     width: 40%;
   height: 15%;
