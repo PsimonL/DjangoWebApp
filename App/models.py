@@ -5,8 +5,7 @@
 from django.db import models
 
 
-
-class User(models.Model):
+class History(models.Model):
     __tablename__ = 'table'
     name = models.CharField(max_length=100)
 
