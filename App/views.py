@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from .models import History
 from django.views.generic import TemplateView
 
-
 # Create your views here.
 # Templates handler; request -> response
 
