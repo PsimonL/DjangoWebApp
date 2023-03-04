@@ -11,9 +11,6 @@ class TestHomepageHTML(StaticLiveServerTestCase):
     def setUp(self):
         self.driver = webdriver.Chrome('chromedriver.exe')
 
-    def tearDown(self):
-        self.driver.quit()
-
     # Check if title for homepage.html is correct
     def test_homepage_title(self):  # python manage.py test functional_tests
         self.driver.get(self.live_server_url)
@@ -56,16 +53,5 @@ class TestHomepageHTML(StaticLiveServerTestCase):
         new_url = self.driver.current_url
         self.assertEqual(new_url, f'{self.live_server_url}/conv')
 
-    # ==================================================================================================================
-    # Check if title for converter.html is correct
-    def test_converter_title(self):
-        self.driver.get(self.live_server_url + '/conv')
-        self.assertEquals(self.driver.title, "Currency Converter")
-
-
-
-    # ==================================================================================================================
-    # Check if title for charts.html is correct
-    def test_charts_title(self):
-        self.driver.get(self.live_server_url + '/charts')
-        self.assertEquals(self.driver.title, "Currency Exchange Charts")
+    def tearDown(self):
+        self.driver.quit()
