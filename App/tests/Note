@@ -1,0 +1,4 @@
+Could be also: test_models, test_views, test_forms
+Those are unit test.
+Could be also integration.
+Functional test are in separate folder - "functional_tests".
