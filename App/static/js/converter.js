@@ -57,6 +57,11 @@ let curr2Val = pickedCurrency2.value;
 let curr2Name = dict[curr2Val];
 //...
 
+function exampleFunc(){
+    return ("Hello World!");
+}
+exampleFunc();
+
 // =====================================================================================================================
 // for button
 function getRates(currency_name) {
