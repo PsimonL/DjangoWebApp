@@ -27,7 +27,7 @@ class TestConverterHTML(StaticLiveServerTestCase):
         flagList = ['US', 'EU', 'GB', 'CH', 'PL']
         pick = random.choice(flagList)
         print(f"Picked country = {pick}")
-        # Selection 'US'
+        # Selection
         select_element.send_keys(pick)
         # Wait for flag to update
         wait = WebDriverWait(self.driver, 10)
