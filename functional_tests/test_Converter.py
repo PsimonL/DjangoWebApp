@@ -62,28 +62,27 @@ class TestConverterHTML(StaticLiveServerTestCase):
         print("input_value = " + input_value)
         self.assertEqual(int(input_value), num)
 
+    # Not fixed
+    # Message: stale element reference: element is not attached to the page document
     # Expected: 'Your conversion will appear here.'
     # Actual: '100 eur => 469.00000000000006 pln'
     def test_conversion_button(self):
         self.driver.get(self.live_server_url + '/conv')
-        WebDriverWait(self.driver, 10).until(
-            expected_conditions.presence_of_element_located((By.TAG_NAME, "body"))
-        )
-
-        self.driver.execute_script("document.dispatchEvent(new Event('DOMContentLoaded'));")
-
-        output = self.driver.find_element(By.ID, 'conversion')
-        print("output = " + output.text)
-
-        self.driver.refresh()
-
-        button = self.driver.find_element(By.CLASS_NAME, 'exchange-button')
-        button.click()
-
-        # WebDriverWait(self.driver, 5).until(
-        #     expected_conditions.text_to_be_present_in_element_value(output, "100 eur => 469.00000000000006 pln")
+        # WebDriverWait(self.driver, 10).until(
+        #     expected_conditions.presence_of_element_located((By.TAG_NAME, "body"))
         # )
 
+        self.driver.execute_script("document.dispatchEvent(new Event('DOMContentLoaded'));")
+        # WebDriverWait(self.driver, 10).until(
+        #     expected_conditions.presence_of_element_located((By.ID, 'exchange-button'))
+        # )
+        # output = self.driver.find_element(By.ID, 'conversion')
+        # print("output = " + output.text)
+
+        button = self.driver.find_element(By.ID, 'exchange-button')
+        button.click()
+
+        # print("output = " + self.driver.find_element(By.ID, 'conversion').text)
         self.assertEqual(self.driver.find_element(By.ID, "conversion").text, "100 eur => 469.00000000000006 pln")
 
 

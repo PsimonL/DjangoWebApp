@@ -145,7 +145,7 @@ select option:checked {
     display: flex;
 }
 
-form .exchange-button{
+form #exchange-button{
     margin: 10px 10px 30px 10px;
     font-size: 30px;
 }
