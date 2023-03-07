@@ -15,6 +15,14 @@ goToConvButton.addEventListener('click', ()=>{
     window.alert("That's your current location!!!");
 });
 // =====================================================================================================================
+// import, export module
+const dict = {
+    "CH": "chf",
+    "PL": "pln",
+    "EU": "eur",
+    "GB": "gbp",
+    "US": "usd"
+};
 
 const pickedCurrency1 = document.getElementById('selector1');
 const pickedCurrency2 = document.getElementById('selector2');
@@ -22,8 +30,6 @@ const valueForInput = document.getElementById('enter');
 const valueForOutput = document.getElementById('conversion');
 const conversionButton =  document.querySelector('.exchange-button');
 const outputRatio = document.getElementById('conversion');
-
-import {dict} from './countryFlagCurrency.js'
 
 const select1 = document.getElementById('selector1');
 const select2 = document.getElementById('selector2');

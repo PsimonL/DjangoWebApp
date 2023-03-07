@@ -1,6 +1,7 @@
 import time
 import random
 import requests
+import pytest
 from selenium import webdriver
 # from budget.modules import Proj/
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -42,35 +43,20 @@ class TestConverterHTML(StaticLiveServerTestCase):
 
     # Crushes after print("2")
     def test_conversion_getRates(self):
-        # self.driver.get(self.live_server_url + '/conv')
-        # curr = 'chf'
-        # wait = WebDriverWait(self.driver, 5)
-        # wait.until(
-        #     expected_conditions.presence_of_element_located((By.XPATH, '//script[@src="js/converter.js"]')))
-        # wait.until(lambda driver: driver.execute_script('return typeof exampleFunc !== "undefined";'))
-        # resultFunc = self.driver.execute_script("return exampleFunc()")
-        # response = requests.get(f'http://api.nbp.pl/api/exchangerates/rates/a/{curr}/')
-        # data = response.json()
-        # rates = data['rates']
-        # mid = rates[0]['mid']
-        # self.assertEqual(resultFunc, mid, "Comparison Done")
-
-        self.driver.get(self.live_server_url + '/conv')
+        with open('App/static/js/converter.js', 'r') as f:
+            js_file = f.read()
         curr = 'chf'
-        print("1")
-        wait = WebDriverWait(self.driver, 10)
-        print("2")
-        wait.until(expected_conditions.presence_of_element_located((By.XPATH, '//script[@src="js/converter.js"]')))
-        print("3")
-        # time.sleep(1)
-        resultFunc = self.driver.execute_script(f'return getRates("{curr}");')
-        print("resultFunc = " + resultFunc)
+        resultFunc = self.driver.execute_script(js_file + f'; return getRates({curr});')
+        print("resultFunc = " + str(resultFunc))
+
         response = requests.get(f'http://api.nbp.pl/api/exchangerates/rates/a/{curr}/')
         data = response.json()
         rates = data['rates']
         mid = rates[0]['mid']
-        print(mid)
+        print("apiFunc = " + str(mid))
         self.assertEqual(resultFunc, str(mid), "Comparison Done")
+
+    # def test_getRates(self):
 
     def tearDown(self):
         self.driver.quit()

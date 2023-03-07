@@ -18,6 +18,15 @@ goToChartsButton.addEventListener('click', ()=>{
 });
 // =====================================================================================================================
 // Functions for Bar Chart
+const dict = {
+    "CH": "chf",
+    "PL": "pln",
+    "EU": "eur",
+    "GB": "gbp",
+    "US": "usd"
+};
+
+
 async function getRates(currency_name) {
     const result = {};
     for (const it of currency_name) {
@@ -31,7 +40,6 @@ async function getRates(currency_name) {
 }
 
 // console.log("Before setter")
-import {dict} from './countryFlagCurrency.js';
 
 async function setter(){
     // const currencyNames = ["chf", "eur", "gbp", "usd"];
