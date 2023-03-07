@@ -36,11 +36,6 @@ class TestConverterHTML(StaticLiveServerTestCase):
         # Check updated image
         self.assertEqual(flag1_element.get_attribute('src'), f'https://www.countryflagicons.com/FLAT/64/{pick}.png')
 
-    # def test_conversion_button(self):
-    #     self.driver.get(self.live_server_url + '/conv')
-    #     button = self.driver.find_element(By.ID, 'exchange-button')
-    #     button.click()
-
     # Crushes after print("2")
     def test_conversion_getRates(self):
         self.driver.get(self.live_server_url + '/conv')
@@ -57,6 +52,10 @@ class TestConverterHTML(StaticLiveServerTestCase):
         print("apiFunc = " + str(mid))
         self.assertEqual(resultFunc, mid, "Comparison Done")
 
+    def test_conversion_button(self):
+        self.driver.get(self.live_server_url + '/conv')
+        button = self.driver.find_element(By.ID, 'exchange-button')
+        button.click()
 
     def tearDown(self):
         self.driver.quit()
