@@ -15,6 +15,14 @@ goToConvButton.addEventListener('click', ()=>{
     window.alert("That's your current location!!!");
 });
 // =====================================================================================================================
+// import, export module
+const dict = {
+    "CH": "chf",
+    "PL": "pln",
+    "EU": "eur",
+    "GB": "gbp",
+    "US": "usd"
+};
 
 const pickedCurrency1 = document.getElementById('selector1');
 const pickedCurrency2 = document.getElementById('selector2');
@@ -23,15 +31,12 @@ const valueForOutput = document.getElementById('conversion');
 const conversionButton =  document.querySelector('.exchange-button');
 const outputRatio = document.getElementById('conversion');
 
-import {dict} from './countryFlagCurrency.js'
-
 const select1 = document.getElementById('selector1');
 const select2 = document.getElementById('selector2');
 
 
 let fromCurr = [];
 let toCurr = [];
-
 function controlFlag(element, flagId) {
   element.addEventListener('change', function () {
     const selectedCountry = element.value;
@@ -57,6 +62,11 @@ let curr1Name = dict[curr1Val];
 let curr2Val = pickedCurrency2.value;
 let curr2Name = dict[curr2Val];
 //...
+
+function exampleFunc(){
+    return ("Hello World!");
+}
+exampleFunc();
 
 // =====================================================================================================================
 // for button

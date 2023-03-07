@@ -94,6 +94,10 @@ background: linear-gradient(to right, #AA6C46 0%, #62BC72 50%, #A2CDFF 100%);
     width: 600px;
         font-size: 100%;
 }
+
+.from-to{
+    font-size: 20px;
+}
 form :where(input, select, button){
     width: 100%;
     border-radius: 4px;
@@ -123,7 +127,20 @@ form .drop-list{
     justify-content: space-between;
     margin: 10px 10px 30px 10px;
 }
-
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+select option {
+  background-color: #fff;
+  color: #000;
+}
+select option:checked {
+  background-color: #007bff;
+  color: #fff;
+}
 .drop-list .select-box{
     display: flex;
 }
@@ -132,7 +149,11 @@ form .exchange-button{
     margin: 10px 10px 30px 10px;
     font-size: 30px;
 }
-
+#conversion{
+    text-align: center;
+    font-weight: 600;
+    font-size: 25px;
+}
 #flag{
     width: 40%;
   height: 15%;

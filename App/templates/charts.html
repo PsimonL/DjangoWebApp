@@ -16,11 +16,18 @@
     </div>
     <br>
     <div class="charts">
-        <p>Bar chart for every currency value in Polish PLN: </p>
+        <p id="rules"> Currency measurements for past 10 days on which certain values were taken
+            are expressed in Polish currency - PLN because they are based on NBP datasets. It's Polish National Bank
+            <a href="http://api.nbp.pl/"> http://api.nbp.pl/l </a></p>
+        <br>
+        <h2>Bar chart for every currency value in Polish PLN: </h2>
+        <br>
         <canvas id="barChart" ></canvas>
         <br>
         <br>
-        <p>Chose country: </p>
+        <h2>Line chart for chosen currency for picked past 10 days: </h2>
+        <br>
+        <p id="choice">Chose country: </p>
         <div class="select-box">
           <img
                   id="flag"
@@ -35,12 +42,12 @@
             <option value="PL">PLN</option>
           </select>
         </div>
-        <p>Line chart for chosen currency for picked past 10 days: </p>
+        <br>
         <canvas id="lineChart" ></canvas>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     {% load static %}
-    <script type="module" src="{% static 'js/charts.js' %}"></script>
+    <script src="{% static 'js/charts.js' %}"></script> <!-- type="module" -->
     <br />
     <br />
     <footer>
