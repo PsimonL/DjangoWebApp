@@ -28,7 +28,7 @@ class TestConverterHTML(StaticLiveServerTestCase):
         flagList = ['US', 'EU', 'GB', 'CH', 'PL']
         pick = random.choice(flagList)
         print(f"Picked country = {pick}")
-        # Selection
+        # Selection - insert into element
         select_element.send_keys(pick)
         # Wait for flag to update
         wait = WebDriverWait(self.driver, 10)
@@ -43,20 +43,20 @@ class TestConverterHTML(StaticLiveServerTestCase):
 
     # Crushes after print("2")
     def test_conversion_getRates(self):
+        self.driver.get(self.live_server_url + '/conv')
         with open('App/static/js/converter.js', 'r') as f:
             js_file = f.read()
-        curr = 'chf'
-        resultFunc = self.driver.execute_script(js_file + f'; return getRates({curr});')
+        flagList = ['US', 'EU', 'GB', 'CH', 'PL']
+        pick = random.choice(flagList)
+        resultFunc = self.driver.execute_script(js_file + '; return getRates(arguments[0]);', pick)
         print("resultFunc = " + str(resultFunc))
-
-        response = requests.get(f'http://api.nbp.pl/api/exchangerates/rates/a/{curr}/')
+        response = requests.get(f'http://api.nbp.pl/api/exchangerates/rates/a/{pick}/')
         data = response.json()
         rates = data['rates']
         mid = rates[0]['mid']
         print("apiFunc = " + str(mid))
-        self.assertEqual(resultFunc, str(mid), "Comparison Done")
+        self.assertEqual(resultFunc, mid, "Comparison Done")
 
-    # def test_getRates(self):
 
     def tearDown(self):
         self.driver.quit()
