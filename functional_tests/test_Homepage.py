@@ -45,13 +45,16 @@ class TestHomepageHTML(StaticLiveServerTestCase):
         expected_url = "https://github.com/PsimonL"
         self.assertEquals(a.get_attribute('href'), expected_url)
 
-    # Chcek if 'go-conv' button directs user to 'converter.html'
+    # Check if 'go-conv' button directs user to 'converter.html'
     def test_button_click_go_conv(self):
         self.driver.get(self.live_server_url)
         button = self.driver.find_element(By.ID, 'go-conv')
         button.click()
         new_url = self.driver.current_url
         self.assertEqual(new_url, f'{self.live_server_url}/conv')
+
+
+
 
     def tearDown(self):
         self.driver.quit()
