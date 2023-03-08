@@ -28,7 +28,7 @@ const pickedCurrency1 = document.getElementById('selector1');
 const pickedCurrency2 = document.getElementById('selector2');
 const valueForInput = document.getElementById('enter');
 const valueForOutput = document.getElementById('conversion');
-const conversionButton =  document.querySelector('.exchange-button');
+const conversionButton =  document.getElementById('exchange-button');
 const outputRatio = document.getElementById('conversion');
 
 const select1 = document.getElementById('selector1');

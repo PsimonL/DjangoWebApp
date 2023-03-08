@@ -36,7 +36,6 @@ class TestConverterHTML(StaticLiveServerTestCase):
         # Check updated image
         self.assertEqual(flag1_element.get_attribute('src'), f'https://www.countryflagicons.com/FLAT/64/{pick}.png')
 
-
     def test_conversion_getRates(self):
         self.driver.get(self.live_server_url + '/conv')
         with open('App/static/js/converter.js', 'r') as f:
@@ -62,6 +61,8 @@ class TestConverterHTML(StaticLiveServerTestCase):
         print("input_value = " + input_value)
         self.assertEqual(int(input_value), num)
 
+    # Not fixed
+    # Message: stale element reference: element is not attached to the page document
     # Expected: 'Your conversion will appear here.'
     # Actual: '100 eur => 469.00000000000006 pln'
     def test_conversion_button(self):
@@ -71,21 +72,15 @@ class TestConverterHTML(StaticLiveServerTestCase):
         )
 
         self.driver.execute_script("document.dispatchEvent(new Event('DOMContentLoaded'));")
-
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.presence_of_element_located((By.ID, 'exchange-button'))
+        )
         output = self.driver.find_element(By.ID, 'conversion')
         print("output = " + output.text)
 
-        self.driver.refresh()
-
-        button = self.driver.find_element(By.CLASS_NAME, 'exchange-button')
+        button = self.driver.find_element(By.ID, 'exchange-button')
         button.click()
-
-        # WebDriverWait(self.driver, 5).until(
-        #     expected_conditions.text_to_be_present_in_element_value(output, "100 eur => 469.00000000000006 pln")
-        # )
-
         self.assertEqual(self.driver.find_element(By.ID, "conversion").text, "100 eur => 469.00000000000006 pln")
-
 
         # self.driver.get(self.live_server_url + '/conv')
         # insertion = self.driver.find_element(By.ID, 'enter')
@@ -98,6 +93,16 @@ class TestConverterHTML(StaticLiveServerTestCase):
         # output_value = output.get_attribute('value')
         # print("output_value = " + str(type(output_value)))
         # self.assertEqual(f"{input_value} eur => 469.00000000000006 pln", output_value)
+
+    def test_summary(self):
+        self.driver.get(self.live_server_url + '/conv')
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+        summary_element = self.driver.find_element(By.TAG_NAME, "summary")
+        summary_element.click()
+        details_content = self.driver.find_element(By.ID, "text-summary").text
+        self.assertEqual(details_content, "Link to my GitHub at the bottom of the page.")
 
     def tearDown(self):
         self.driver.quit()

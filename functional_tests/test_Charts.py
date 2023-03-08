@@ -40,5 +40,12 @@ class TestChartsHTML(StaticLiveServerTestCase):
         alert.accept()
         self.assertEqual(alert_text, "That's your current location!!!")
 
+    # Not finished, tests for plotting, apis operations
+    def test_a(self):
+        self.driver.get(self.live_server_url + '/charts')
+        with open('App/static/js/charts.js', 'r') as f:
+            js_file = f.read()
+
+
     def tearDown(self):
         self.driver.quit()
